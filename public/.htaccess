@@ -1,0 +1,17 @@
+# ============================================================
+# Fawmond Galaxy - Apache SPA Routing Fix
+# Redirect all non-file, non-directory requests to index.html
+# so React Router (BrowserRouter) can handle client-side routing.
+# ============================================================
+
+Options -MultiViews
+RewriteEngine On
+
+# If the request is for a real file (assets, images, etc.) – serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+# If the request is for a real directory – serve it directly
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Everything else → index.html (React Router takes over)
+RewriteRule ^ index.html [L,QSA]
+
